@@ -5,6 +5,11 @@ import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 
+/*For Testing Login and Register screen*/
+import LoginScreen from './screens/LoginScreen';
+import{ TailwindProvider } from "tailwindcss-react-native";
+
+
 export default function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
@@ -13,10 +18,12 @@ export default function App() {
     return null;
   } else {
     return (
-      <SafeAreaProvider>
-        <Navigation colorScheme={colorScheme} />
-        <StatusBar />
-      </SafeAreaProvider>
+      <TailwindProvider>
+        {/* <Navigation colorScheme={colorScheme} /> comment out for testing */}
+        <StatusBar style='light'/>
+        <LoginScreen/>
+     
+      </TailwindProvider>
     );
   }
 }
