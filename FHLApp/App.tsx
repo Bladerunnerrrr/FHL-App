@@ -7,8 +7,8 @@ import Navigation from './navigation';
 
 /*For Testing Login and Register screen*/
 import LoginScreen from './screens/LoginScreen';
-import{ TailwindProvider } from "tailwindcss-react-native";
-
+import RegisterScreen from './screens/RegisterScreen';
+import { Provider as PaperProvider } from 'react-native-paper';
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -18,12 +18,12 @@ export default function App() {
     return null;
   } else {
     return (
-      <TailwindProvider>
+      <PaperProvider>
         {/* <Navigation colorScheme={colorScheme} /> comment out for testing */}
-        <StatusBar style='light'/>
-        <LoginScreen/>
+       
+        <RegisterScreen/>
      
-      </TailwindProvider>
+      </PaperProvider>
     );
   }
 }
