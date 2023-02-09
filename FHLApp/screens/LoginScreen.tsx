@@ -2,8 +2,15 @@ import { StyleSheet, ImageBackground, SafeAreaView, Text, View } from 'react-nat
 import { executeNativeBackPress } from 'react-native-screens';
 import {Button, Card, TextInput} from 'react-native-paper';
 import CardContent from 'react-native-paper/lib/typescript/components/Card/CardContent';
+/* Function to include navigation to the screen */
+interface LoginScreenProps{
+    navigation: any;
+}
 
-function LoginScreen(){
+function LoginScreen(props: LoginScreenProps){
+    /*functions to navigate to screens */
+    const Reg_nav = () => props.navigation.navigate("Register")
+    const ForgotPass_nav = () => props.navigation.navigate("ForgotPassword")
     return (
         <ImageBackground 
         source={require("../assets/images/SignIn.jpg")}
@@ -17,9 +24,9 @@ function LoginScreen(){
                     <Card.Content >
                         <TextInput style={styles.inputText} label = "Email" keyboardType="email-address"></TextInput>
                         <TextInput style={styles.inputText} label = "Password" secureTextEntry={true}></TextInput>
-                        <Button >FORGOT EMAIL/PASSWORD</Button>
+                        <Button onPress={ForgotPass_nav} >FORGOT PASSWORD</Button>
                         <Button mode='outlined' buttonColor='blue' textColor='white'>LOGIN</Button>
-                        <Button >REGISTER</Button>
+                        <Button onPress={Reg_nav}>REGISTER</Button>
                     </Card.Content>
                 </Card>
             </View>
@@ -39,7 +46,7 @@ const styles = StyleSheet.create({
       
     },
     titleFHL:{
-        top: '-12%',
+        top: '-15%',
         color:'white',
         fontSize: 50,
         lineHeight:100,

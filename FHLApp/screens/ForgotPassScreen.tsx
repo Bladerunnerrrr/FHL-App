@@ -2,12 +2,13 @@ import React from "react";
 import { ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text } from "react-native";
 import { Appbar, Button, TextInput, Card } from "react-native-paper";
 /* Function to include navigation to the screen */
-interface RegisterScreenProps{
+interface ForgotScreenProps{
     navigation: any;
 }
-function RegisterScreen(props: RegisterScreenProps){
+function ForgotPassScreen(props: ForgotScreenProps){
     /*function to navigate to login screen */
     const Log_nav = () => props.navigation.navigate("Login")
+    const Reset_nav = () => props.navigation.navigate("ResetPassword")
     return(
         
             <ImageBackground 
@@ -18,13 +19,10 @@ function RegisterScreen(props: RegisterScreenProps){
                 <Text style = {styles.titleFHL}>FHL-App</Text>
                 <ScrollView style = {styles.RegContainer}>
                 <Card >
-                    <Card.Title title="Register"/>
+                    <Card.Title title="Forgot Password"/>
                     <Card.Content >
-                        <TextInput label={'Name'} />
-                        <TextInput label="Email" keyboardType="email-address" />
-                        <TextInput label='Password' secureTextEntry={true} />
-                        <TextInput label='Confirm Password' secureTextEntry={true}/>
-                        <Button mode="contained">REGISTER</Button>
+                        <TextInput label='Email' />
+                        <Button onPress={Reset_nav} mode="contained">SEND RESET CODE</Button>
                         <Button onPress={Log_nav} mode="text">Back</Button>
                         </Card.Content>
                 </Card>
@@ -55,4 +53,4 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     }
 })
-export default RegisterScreen;
+export default ForgotPassScreen;

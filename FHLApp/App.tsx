@@ -9,21 +9,18 @@ import Navigation from './navigation';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import { Provider as PaperProvider } from 'react-native-paper';
+import { theme } from './components/AppTheme';
+import AppNavigator from './navigation/AppNavigator';
 
 export default function App() {
-  const isLoadingComplete = useCachedResources();
-  const colorScheme = useColorScheme();
 
-  if (!isLoadingComplete) {
-    return null;
-  } else {
     return (
-      <PaperProvider>
+      <PaperProvider theme={theme}>
         {/* <Navigation colorScheme={colorScheme} /> comment out for testing */}
        
-        <RegisterScreen/>
+        <AppNavigator/>
      
       </PaperProvider>
     );
   }
-}
+

@@ -5,7 +5,7 @@ import { Appbar, Button, TextInput, Card } from "react-native-paper";
 interface RegisterScreenProps{
     navigation: any;
 }
-function RegisterScreen(props: RegisterScreenProps){
+function NewPassScreen(props: RegisterScreenProps){
     /*function to navigate to login screen */
     const Log_nav = () => props.navigation.navigate("Login")
     return(
@@ -18,13 +18,12 @@ function RegisterScreen(props: RegisterScreenProps){
                 <Text style = {styles.titleFHL}>FHL-App</Text>
                 <ScrollView style = {styles.RegContainer}>
                 <Card >
-                    <Card.Title title="Register"/>
+                    <Card.Title title="Reset Password"/>
                     <Card.Content >
-                        <TextInput label={'Name'} />
-                        <TextInput label="Email" keyboardType="email-address" />
-                        <TextInput label='Password' secureTextEntry={true} />
+                        <TextInput label='Reset Code' />
+                        <TextInput label='New Password' secureTextEntry={true} />
                         <TextInput label='Confirm Password' secureTextEntry={true}/>
-                        <Button mode="contained">REGISTER</Button>
+                        <Button mode="contained">RESET</Button>
                         <Button onPress={Log_nav} mode="text">Back</Button>
                         </Card.Content>
                 </Card>
@@ -55,4 +54,4 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     }
 })
-export default RegisterScreen;
+export default NewPassScreen;
