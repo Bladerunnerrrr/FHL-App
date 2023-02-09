@@ -38,29 +38,31 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
         />
         <Text style={styles.statusText}>{status === 'green' ? 'Connected' : 'Disconnected'}</Text>
       </View>
-      <View style={styles.sectionContainer}>
-        <Text style={styles.sectionTitle}>My Presets:</Text>
-        <ScrollView style={styles.scrollContainer}>
-          {myPresets.map((preset) => (
-            <View style={styles.presetContainer} key={preset.id}>
-              <Text style={styles.presetText}>{preset.name}</Text>
-            </View>
-          ))}
-        </ScrollView>
-      </View>
-      <View style={styles.sectionContainer}>
-        <Text style={styles.sectionTitle}>Pre-saved animation patterns:</Text>
-        <ScrollView style={styles.scrollContainer}>
-          {presets.map((preset) => (
-            <View style={styles.presetContainer} key={preset.id}>
-              <Text style={styles.presetText}>{preset.name}</Text>
-            </View>
-          ))}
-        </ScrollView>
-      </View>
-      <TouchableOpacity style={styles.runButton} onPress={() => console.log('RUN button pressed')}>
-        <Text style={styles.runButtonText}>RUN</Text>
-      </TouchableOpacity>
+      <ScrollView style={styles.scrollContainer}>
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionTitle}>My Presets:</Text>
+          <ScrollView style={styles.scrollContainer}>
+            {myPresets.map((preset) => (
+              <View style={styles.presetContainer} key={preset.id}>
+                <Text style={styles.presetText}>{preset.name}</Text>
+              </View>
+            ))}
+          </ScrollView>
+        </View>
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionTitle}>Pre-saved animation patterns:</Text>
+          <ScrollView style={styles.scrollContainer}>
+            {presets.map((preset) => (
+              <View style={styles.presetContainer} key={preset.id}>
+                <Text style={styles.presetText}>{preset.name}</Text>
+              </View>
+            ))}
+          </ScrollView>
+        </View>
+        <TouchableOpacity style={styles.runButton} onPress={() => console.log('RUN button pressed')}>
+          <Text style={styles.runButtonText}>RUN</Text>
+        </TouchableOpacity>
+      </ScrollView>
     </View>
   );
 }
@@ -84,10 +86,12 @@ const styles = StyleSheet.create({
     statusIcon: {
     width: 20,
     height: 20,
-    marginRight: 10,
+    marginLeft: 10,
+    padding: 10,
     },
     statusText: {
     fontSize: 16,
+    marginLeft: 5,
     },
     sectionContainer: {
     marginVertical: 20,
