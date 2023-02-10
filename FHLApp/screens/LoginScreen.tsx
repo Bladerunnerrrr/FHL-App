@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, ImageBackground, SafeAreaView, Text, View } from 'react-native';
 import { executeNativeBackPress } from 'react-native-screens';
 import {Button, Card, TextInput} from 'react-native-paper';
-//import CardContent from 'react-native-paper/lib/typescript/components/Card/CardContent';
+import CardContent from 'react-native-paper/lib/typescript/components/Card/CardContent';
 import axios from 'axios';
 
 
