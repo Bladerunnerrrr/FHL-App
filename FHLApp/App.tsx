@@ -21,6 +21,10 @@ export default function App() {
       <PaperProvider>
         {/* <Navigation colorScheme={colorScheme} /> comment out for testing */}
        
+        
+        
+        
+        <LoginScreen/>
         <RegisterScreen/>
      
       </PaperProvider>

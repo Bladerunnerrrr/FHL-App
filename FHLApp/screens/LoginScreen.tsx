@@ -1,9 +1,37 @@
+import React, { useState } from 'react';
 import { StyleSheet, ImageBackground, SafeAreaView, Text, View } from 'react-native';
 import { executeNativeBackPress } from 'react-native-screens';
 import {Button, Card, TextInput} from 'react-native-paper';
 import CardContent from 'react-native-paper/lib/typescript/components/Card/CardContent';
+import axios from 'axios';
 
-function LoginScreen(){
+/* Function to include navigation to the screen */
+interface LoginScreenProps{
+    navigation: any;
+}
+
+function LoginScreen(props: LoginScreenProps){
+    /*functions to navigate to screens */
+    const Reg_nav = () => props.navigation.navigate("Register")
+    const ForgotPass_nav = () => props.navigation.navigate("ForgotPassword")
+    
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleLogin = async () => {
+        try {
+            const res = await axios.post('http://10.237.230.60:3000/login', {
+                email,
+                password
+            });
+            console.log(res.data);
+            alert("Login successful");
+        } catch (error) {
+            console.error(error);
+            alert("Password/Email does not match");
+        }
+    };
+
     return (
         <ImageBackground 
         source={require("../assets/images/SignIn.jpg")}
@@ -15,11 +43,11 @@ function LoginScreen(){
 
                 <Card>
                     <Card.Content >
-                        <TextInput style={styles.inputText} label = "Email" keyboardType="email-address"></TextInput>
-                        <TextInput style={styles.inputText} label = "Password" secureTextEntry={true}></TextInput>
-                        <Button >FORGOT EMAIL/PASSWORD</Button>
-                        <Button mode='outlined' buttonColor='blue' textColor='white'>LOGIN</Button>
-                        <Button >REGISTER</Button>
+                        <TextInput style={styles.inputText} label = "Email" keyboardType="email-address" onChangeText={text => setEmail(text)}></TextInput>
+                        <TextInput style={styles.inputText} label = "Password" secureTextEntry={true} onChangeText={text => setPassword(text)}></TextInput>
+                        <Button onPress={ForgotPass_nav} >FORGOT PASSWORD</Button>
+                        <Button mode='outlined' buttonColor='blue' textColor='white' onPress={handleLogin}>LOGIN</Button>
+                        <Button onPress={Reg_nav}>REGISTER</Button>
                     </Card.Content>
                 </Card>
             </View>
@@ -39,7 +67,7 @@ const styles = StyleSheet.create({
       
     },
     titleFHL:{
-        top: '-12%',
+        top: '-15%',
         color:'white',
         fontSize: 50,
         lineHeight:100,
