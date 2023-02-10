@@ -3,12 +3,16 @@ import { StyleSheet, ImageBackground, SafeAreaView, Text, View } from 'react-nat
 import { executeNativeBackPress } from 'react-native-screens';
 import {Button, Card, TextInput} from 'react-native-paper';
 import CardContent from 'react-native-paper/lib/typescript/components/Card/CardContent';
+<<<<<<< HEAD
 import axios from 'axios';
 
+=======
+>>>>>>> 6731c60c8ac44401b17d3ed2d0b014e4965a833d
 /* Function to include navigation to the screen */
 interface LoginScreenProps{
     navigation: any;
 }
+<<<<<<< HEAD
 
 function LoginScreen(props: LoginScreenProps){
     /*functions to navigate to screens */
@@ -32,6 +36,13 @@ function LoginScreen(props: LoginScreenProps){
         }
     };
 
+=======
+
+function LoginScreen(props: LoginScreenProps){
+    /*functions to navigate to screens */
+    const Reg_nav = () => props.navigation.navigate("Register")
+    const ForgotPass_nav = () => props.navigation.navigate("ForgotPassword")
+>>>>>>> 6731c60c8ac44401b17d3ed2d0b014e4965a833d
     return (
         <ImageBackground 
         source={require("../assets/images/SignIn.jpg")}
@@ -43,10 +54,17 @@ function LoginScreen(props: LoginScreenProps){
 
                 <Card>
                     <Card.Content >
+<<<<<<< HEAD
                         <TextInput style={styles.inputText} label = "Email" keyboardType="email-address" onChangeText={text => setEmail(text)}></TextInput>
                         <TextInput style={styles.inputText} label = "Password" secureTextEntry={true} onChangeText={text => setPassword(text)}></TextInput>
                         <Button onPress={ForgotPass_nav} >FORGOT PASSWORD</Button>
                         <Button mode='outlined' buttonColor='blue' textColor='white' onPress={handleLogin}>LOGIN</Button>
+=======
+                        <TextInput style={styles.inputText} label = "Email" keyboardType="email-address"></TextInput>
+                        <TextInput style={styles.inputText} label = "Password" secureTextEntry={true}></TextInput>
+                        <Button onPress={ForgotPass_nav} >FORGOT PASSWORD</Button>
+                        <Button mode='outlined' buttonColor='blue' textColor='white'>LOGIN</Button>
+>>>>>>> 6731c60c8ac44401b17d3ed2d0b014e4965a833d
                         <Button onPress={Reg_nav}>REGISTER</Button>
                     </Card.Content>
                 </Card>
