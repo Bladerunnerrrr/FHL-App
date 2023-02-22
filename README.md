@@ -1,16 +1,16 @@
-FHL-App
+**FHL-App**
 
-Installation
+**Installation**
 To install the necessary npm modules, run the following command:
 
-npm install
+**npm install**
 
 This will install all the required dependencies listed in the package.json file.
 
-Running the Application
+**Running the Application**
 Once the installation is complete, run the following command to start the application:
 
-npx expo start
+**npx expo start**
 
 This will start the development server and launch the Expo client in your default web browser.
 
