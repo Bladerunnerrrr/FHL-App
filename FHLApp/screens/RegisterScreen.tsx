@@ -21,7 +21,7 @@ function RegisterScreen(props: RegisterScreenProps){
             return;
         }
         try {
-            const response = await axios.post('http://10.237.230.60:3000/register', {
+            const response = await axios.post('http://localhost:3000/register', {
                 name,
                 email,
                 password

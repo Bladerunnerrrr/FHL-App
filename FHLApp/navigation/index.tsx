@@ -17,6 +17,12 @@ import NotFoundScreen from '../screens/NotFoundScreen';
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import TabThreeScreen from '../screens/TabThreeScreen';
+
+import LoginScreen from "../screens/LoginScreen";
+import RegisterScreen from "../screens/RegisterScreen";
+import NewPassScreen from "../screens/NewPassScreen";
+import ForgotPassScreen from "../screens/ForgotPassScreen";
+
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 
@@ -25,6 +31,7 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
     <NavigationContainer
       linking={LinkingConfiguration}
       theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      
       <RootNavigator />
     </NavigationContainer>
   );
@@ -38,7 +45,11 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator headerMode="false" initialRouteName='Login'>
+      <Stack.Screen name ="Login" component={LoginScreen}></Stack.Screen>
+      <Stack.Screen name="Register" component={RegisterScreen}></Stack.Screen>
+      <Stack.Screen name="ResetPassword" component={NewPassScreen}></Stack.Screen>
+      <Stack.Screen name="ForgotPassword" component={ForgotPassScreen}></Stack.Screen>
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>

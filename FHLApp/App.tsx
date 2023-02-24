@@ -20,8 +20,8 @@ export default function App() {
   } else {
     return (
       <PaperProvider>
-        {/* <Navigation colorScheme={colorScheme} /> comment out for testing */}
-        <AppNavigator/>
+        <Navigation colorScheme={colorScheme} /> 
+        {/* <AppNavigator/> */}
      
       </PaperProvider>
     );

@@ -15,21 +15,23 @@ function LoginScreen(props: LoginScreenProps){
     /*functions to navigate to screens */
     const Reg_nav = () => props.navigation.navigate("Register")
     const ForgotPass_nav = () => props.navigation.navigate("ForgotPassword")
-    
+    const Root_nav = () => props.navigation.navigate("Root")
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const handleLogin = async () => {
         try {
-            const res = await axios.post('http://10.237.230.60:3000/login', {
+            const res = await axios.post('http://localhost:3000/login', {
                 email,
                 password
             });
             console.log(res.data);
             alert("Login successful");
+            Root_nav();
         } catch (error) {
             console.error(error);
             alert("Password/Email does not match");
+           
         }
     };
 
