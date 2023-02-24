@@ -3,10 +3,19 @@
  * https://docs.expo.io/guides/color-schemes/
  */
 
-import { Text as DefaultText, View as DefaultView } from 'react-native';
+import React from 'react';
+import { Image as RNImage, ImageProperties } from 'react-native';
+import { Text as DefaultText, View as DefaultView, TouchableOpacity} from 'react-native';
+import { useTheme } from '@react-navigation/native';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
+
+interface TouchableOpacityProps {
+  children: React.ReactNode;
+  onPress: () => void;
+  style?: any;
+}
 
 export function useThemeColor(
   props: { light?: string; dark?: string },
@@ -29,6 +38,7 @@ type ThemeProps = {
 
 export type TextProps = ThemeProps & DefaultText['props'];
 export type ViewProps = ThemeProps & DefaultView['props'];
+export { TouchableOpacity };
 
 export function Text(props: TextProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
@@ -42,4 +52,28 @@ export function View(props: ViewProps) {
   const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'background');
 
   return <DefaultView style={[{ backgroundColor }, style]} {...otherProps} />;
+}
+
+export function ThemedTouchableOpacity({ children, onPress, style }: TouchableOpacityProps) {
+  const { colors } = useTheme();
+
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      style={[{ backgroundColor: colors.primary }, style]}
+      activeOpacity={0.7}
+    >
+      <View style={{ padding: 10 }}>
+        <Text style={{ color: colors.text, fontWeight: 'bold' }}>{children}</Text>
+      </View>
+    </TouchableOpacity>
+  );
+}
+
+interface Props extends ImageProperties {
+  source: any;
+}
+
+export function Image(props: Props) {
+  return <RNImage {...props} />;
 }
