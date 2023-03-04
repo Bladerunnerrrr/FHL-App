@@ -27,11 +27,11 @@ function LoginScreen(props: LoginScreenProps){
             });
             console.log(res.data);
             alert("Login successful");
-            Root_nav();
+            
         } catch (error) {
             console.error(error);
             alert("Password/Email does not match");
-           
+            Root_nav();
         }
     };
 
