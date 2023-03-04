@@ -8,12 +8,19 @@ import * as Paho from 'paho-mqtt';
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
   const [status, setStatus] = useState('red');
-  const [selectedPattern, setSelectedPattern] = useState('Merry Xmas');
-  console.log(selectedPattern);
+  
+  // Used for myPresets
+  const [selectedPattern, setSelectedPattern] = useState<number | null>(null);
 
-  const client = new Paho.Client('broker.hivemq.com', 8000, 'client_' + Math.random());
+  // Used for pre-animated presets
   const [selectedPreset, setSelectedPreset] = useState<number | null>(null);
 
+  // MQTT Broker
+  const client = new Paho.Client('broker.hivemq.com', 8000, 'client_' + Math.random());
+
+  // Debugging
+  console.log(selectedPreset);
+  console.log(selectedPattern);
 
   const presets = [
     { name: 'Merry Xmas', id: 1 },
@@ -47,6 +54,13 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
     console.log('Message sent: ', messageObj);
   }
 
+  function getPresetNameById(type: string, id: number) {
+    const presetss = type === 'myPresets' ? myPresets : presets;
+    const preset = presetss.find((preset) => preset.id === id);
+    return preset ? preset.name : '';
+  }
+    
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome to Festive Holiday Lights!</Text>
@@ -66,23 +80,35 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
           <Text style={styles.sectionTitle}>My Presets:</Text>
           <ScrollView style={styles.scrollContainer}>
             {myPresets.map((preset) => (
-              <View style={styles.presetContainer} key={preset.id}>
-                <Text style={styles.presetText}>{preset.name}</Text>
-              </View>
+              <TouchableOpacity
+                style={[
+                  styles.presetContainer,
+                  preset.id === selectedPattern && styles.selectedPresetContainer,
+                ]}
+                key={preset.id}
+                onPress={() =>
+                  {
+                    if (preset.id === selectedPattern) {
+                      setSelectedPattern(null); // unselect the preset
+                    } else {
+                      setSelectedPattern(preset.id); // select the preset
+                    }
+                  }}
+              >
+                <Text
+                  style={[
+                    styles.presetText,
+                    preset.id === selectedPattern && styles.selectedPresetText,
+                  ]}
+                >
+                  {preset.name}
+                </Text>
+              </TouchableOpacity>
             ))}
           </ScrollView>
         </View>
+
         <View style={styles.sectionContainer}>
-          <Text style={styles.sectionTitle}>Pre-saved animation patterns:</Text>
-          <ScrollView style={styles.scrollContainer}>
-            {presets.map((preset) => (
-              <View style={styles.presetContainer} key={preset.id}>
-                <Text style={styles.presetText}>{preset.name}</Text>
-              </View>
-            ))}
-          </ScrollView>
-        </View>
-        {/* <View style={styles.sectionContainer}>
           <Text style={styles.sectionTitle}>Pre-saved animation patterns:</Text>
           <ScrollView style={styles.scrollContainer}>
             {presets.map((preset) => (
@@ -92,7 +118,14 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
                   preset.id === selectedPreset && styles.selectedPresetContainer,
                 ]}
                 key={preset.id}
-                onPress={() => setSelectedPreset(preset.id)}
+                onPress={() => 
+                  {
+                    if (preset.id === selectedPreset) {
+                      setSelectedPreset(null); // unselect the preset
+                    } else {
+                      setSelectedPreset(preset.id); // select the preset
+                    }
+                  }}
               >
                 <Text
                   style={[
@@ -105,14 +138,23 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
               </TouchableOpacity>
             ))}
           </ScrollView>
-        </View> */}
+        </View>
 
         <TouchableOpacity
           style={styles.runButton}
-          onPress={() => publishMessage(selectedPattern === 'Merry Xmas' ? '1' : '0')}
+          onPress={() => {
+            if (selectedPattern !== null && selectedPreset !== null) {
+              alert('Please select only one preset');
+            } else {
+              const presetId = selectedPattern !== null ? selectedPattern : selectedPreset !== null ? selectedPreset : 0;
+              const presetType = selectedPattern !== null ? 'myPresets' : 'presets';
+              publishMessage(getPresetNameById(presetType, presetId));
+            }
+          }}
         >
           <Text style={styles.runButtonText}>RUN</Text>
         </TouchableOpacity>
+
       </ScrollView>
     </View>
   );
