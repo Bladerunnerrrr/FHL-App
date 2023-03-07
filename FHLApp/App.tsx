@@ -5,6 +5,12 @@ import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 
+/*For Testing Login and Register screen*/
+import LoginScreen from './screens/LoginScreen';
+import RegisterScreen from './screens/RegisterScreen';
+import { Provider as PaperProvider } from 'react-native-paper';
+import AppNavigator from './navigation/AppNavigator'
+
 export default function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
@@ -13,10 +19,11 @@ export default function App() {
     return null;
   } else {
     return (
-      <SafeAreaProvider>
-        <Navigation colorScheme={colorScheme} />
-        <StatusBar />
-      </SafeAreaProvider>
+      <PaperProvider>
+        <Navigation colorScheme={colorScheme} /> 
+        {/* <AppNavigator/> */}
+     
+      </PaperProvider>
     );
   }
 }
