@@ -41,7 +41,7 @@ export default function TabTwoScreen(this: any) {
       brightnessvalue=String(sliderValue1);
 
     }
-    const payload="1"+sliderValue1+userinput+" "+colorchose;
+    const payload="1"+brightnessvalue+colorchose+userinput;
     const messageObj=new Paho.Message(payload);
     messageObj.destinationName=topic;
     client.send(messageObj);

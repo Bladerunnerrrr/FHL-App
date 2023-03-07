@@ -27,19 +27,12 @@ function LoginScreen(props: LoginScreenProps){
             });
             console.log(res.data);
             alert("Login successful");
-<<<<<<< HEAD
             // Root_nav();
-=======
-            
->>>>>>> 515afa20e91175668c0a782d0e9f14467da15bb6
         } catch (error) {
             console.error(error);
             alert("Password/Email does not match");
             Root_nav();
-<<<<<<< HEAD
            
-=======
->>>>>>> 515afa20e91175668c0a782d0e9f14467da15bb6
         }
     };
 
