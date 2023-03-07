@@ -13,7 +13,7 @@ import * as Paho from 'paho-mqtt';
 export default function TabTwoScreen(this: any) {
 
   const[text,setText]=React.useState(""); //comment
-  const [color,setColor]=React.useState("")
+  const [color,setColorValue]=React.useState(15)
   const[sliderValue,setSliderValue]=React.useState(15);
   const[sliderValue1,setSliderValue1]=React.useState(15);
 
@@ -30,7 +30,17 @@ export default function TabTwoScreen(this: any) {
     const topic="festive-holiday-lightss"
     const userinput=text;
     const colorchose=color;
-    const brightnessvalue=String(sliderValue1);
+    let brightnessvalue: string;
+
+    if ( sliderValue1 < 100 ){
+
+      brightnessvalue=String(0)+String(sliderValue1);
+
+    }
+    else{
+      brightnessvalue=String(sliderValue1);
+
+    }
     const payload="1"+sliderValue1+userinput+" "+colorchose;
     const messageObj=new Paho.Message(payload);
     messageObj.destinationName=topic;
@@ -38,33 +48,33 @@ export default function TabTwoScreen(this: any) {
     
     console.log("message sent: ", messageObj);
 
-    alert("1"+" "+sliderValue1+" "+userinput+" "+colorchose);
+    alert("1"+" "+brightnessvalue+" "+colorchose+" "+userinput);
 
   }
   const colorchangered=()=>
   {
-    setColor(color=>"Red")
+    setColorValue(color=>1)
 
   }
   const colorchangeblue=()=>
   {
-    setColor(color=>"Blue")
+    setColorValue(color=>3)
   }
   const colorchangegreen=()=>
   {
-    setColor(color=>"Green")
+    setColorValue(color=>2)
   }
   return (
     <ScrollView>
     <View style={styles.container} >
       <TextInput label="Enter a Display Message..." value={text} style={styles.textbox} onChangeText={text=>setText(text)} />
-      <Button mode='contained'   onPress={colorchangered} style={styles.button}>
+      <Button mode='contained' onPress={colorchangered} style={styles.button}>
         Red
       </Button>
-      <Button mode='contained'    onPress={colorchangegreen} style={styles.button3} >
+      <Button mode='contained' onPress={colorchangegreen} style={styles.button3} >
         Green
       </Button>
-      <Button mode='contained'  onPress={colorchangeblue} style={styles.button2}>
+      <Button mode='contained' onPress={colorchangeblue} style={styles.button2}>
         Blue
       </Button>
       <Text style={styles.cyclespeedtext}>Cycle Speed</Text>
