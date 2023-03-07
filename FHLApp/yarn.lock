@@ -2308,16 +2308,28 @@
   "version" "6.9.7"
 
 "@types/react-native@^0.70.11":
+<<<<<<< HEAD
   "integrity" "sha512-FobPtzoNPNHugBKMfzs4Li0Q9ei4tgU8SI1M5Ayg7+t5/+noCm2sknI8uwij22wMkcHcefv8RFx4q28nNVJtCQ=="
   "resolved" "https://registry.npmjs.org/@types/react-native/-/react-native-0.70.11.tgz"
   "version" "0.70.11"
+=======
+  version "0.70.11"
+  resolved "https://registry.npmjs.org/@types/react-native/-/react-native-0.70.11.tgz"
+  integrity sha512-FobPtzoNPNHugBKMfzs4Li0Q9ei4tgU8SI1M5Ayg7+t5/+noCm2sknI8uwij22wMkcHcefv8RFx4q28nNVJtCQ==
+>>>>>>> 515afa20e91175668c0a782d0e9f14467da15bb6
   dependencies:
     "@types/react" "*"
 
 "@types/react@*", "@types/react@~18.0.24":
+<<<<<<< HEAD
   "integrity" "sha512-RD0ivG1kEztNBdoAK7lekI9M+azSnitIn85h4iOiaLjaTrMjzslhaqCGaI4IyCJ1RljWiLCEu4jyrLLgqxBTew=="
   "resolved" "https://registry.npmjs.org/@types/react/-/react-18.0.28.tgz"
   "version" "18.0.28"
+=======
+  version "18.0.28"
+  resolved "https://registry.npmjs.org/@types/react/-/react-18.0.28.tgz"
+  integrity sha512-RD0ivG1kEztNBdoAK7lekI9M+azSnitIn85h4iOiaLjaTrMjzslhaqCGaI4IyCJ1RljWiLCEu4jyrLLgqxBTew==
+>>>>>>> 515afa20e91175668c0a782d0e9f14467da15bb6
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
