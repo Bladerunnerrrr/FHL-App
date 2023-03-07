@@ -27,7 +27,7 @@ export default function TabTwoScreen(this: any) {
   }
   const click=()=>  //this function is to send the data entered by the user and the color chosen by the user. this function will also publish the data to the esp.
   {
-    const topic="festive-holiday-lightss"
+    const topic="festive-holiday-lights"
     const userinput=text;
     const colorchose=color;
     let brightnessvalue: string;
