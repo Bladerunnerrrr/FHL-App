@@ -5,6 +5,7 @@ import { Text, View} from '../components/Themed';
 import React, { useState } from 'react';
 import {Button,TextInput} from 'react-native-paper';
 import Slider from '@react-native-community/slider';
+import * as Paho from 'paho-mqtt'; 
 
 
 
@@ -12,35 +13,73 @@ import Slider from '@react-native-community/slider';
 export default function TabTwoScreen(this: any) {
 
   const[text,setText]=React.useState(""); //comment
+  const [color,setColor]=React.useState("")
   const[sliderValue,setSliderValue]=React.useState(15);
   const[sliderValue1,setSliderValue1]=React.useState(15);
+
+  const client= new Paho.Client('broker.hivemq.com',8000,'clientcreate_'+Math.random());
+
+  client.connect({onSuccess:onConnect});
+
+
+  function onConnect(){
+    console.log("the broker is connected");
+  }
+  const click=()=>  //this function is to send the data entered by the user and the color chosen by the user. this function will also publish the data to the esp.
+  {
+    const topic="festive-holiday-lightss"
+    const userinput=text;
+    const colorchose=color;
+    const brightnessvalue=String(sliderValue1);
+    const payload="1"+sliderValue1+userinput+" "+colorchose;
+    const messageObj=new Paho.Message(payload);
+    messageObj.destinationName=topic;
+    client.send(messageObj);
+    
+    console.log("message sent: ", messageObj);
+
+    alert("1"+" "+sliderValue1+" "+userinput+" "+colorchose);
+
+  }
+  const colorchangered=()=>
+  {
+    setColor(color=>"Red")
+
+  }
+  const colorchangeblue=()=>
+  {
+    setColor(color=>"Blue")
+  }
+  const colorchangegreen=()=>
+  {
+    setColor(color=>"Green")
+  }
   return (
     <ScrollView>
     <View style={styles.container} >
       <TextInput label="Enter a Display Message..." value={text} style={styles.textbox} onChangeText={text=>setText(text)} />
-      <Button mode='contained'  onPress={()=> console.log("pressed red")} style={styles.button}>
+      <Button mode='contained'   onPress={colorchangered} style={styles.button}>
         Red
       </Button>
-      <Button mode='contained'   onPress={()=> console.log("pressed green...")} style={styles.button3} >
+      <Button mode='contained'    onPress={colorchangegreen} style={styles.button3} >
         Green
       </Button>
-      <Button mode='contained'  onPress={()=> console.log("pressed blue...")} style={styles.button2}>
+      <Button mode='contained'  onPress={colorchangeblue} style={styles.button2}>
         Blue
       </Button>
       <Text style={styles.cyclespeedtext}>Cycle Speed</Text>
       <Slider maximumValue={100} minimumValue={0}  style={styles.cyclespeedslider} step={1} value={sliderValue} onValueChange={setSliderValue}/>
       <Text style={styles.cyclespeedtitle}> {sliderValue && +sliderValue.toFixed(3)} </Text>
       <Text style={styles.brightnesstext}>Brightness</Text>
-      <Slider maximumValue={100} minimumValue={0} step={1}  style={styles.brightnessslider} value={sliderValue1} onValueChange={setSliderValue1}/>
+      <Slider maximumValue={255} minimumValue={0} step={1}  style={styles.brightnessslider} value={sliderValue1} onValueChange={setSliderValue1}/>
       <Text style={styles.brighterslidertitle}> {sliderValue1 && +sliderValue1.toFixed(3)} </Text>
+      <Button mode="text" onPress={click} style={styles.sendbutton}>Send</Button>
       <Button mode='text' onPress={()=> console.log("pressed Advanced settings")} style={styles.advancedsettings}>
         Advanced Settings 
       </Button>
       <Button mode='text' onPress={()=> console.log("pressed Settings")} style={styles.community} >
         Community
       </Button>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      {/* <EditScreenInfo path="/screens/TabTwoScreen.tsx" /> */}
     </View>
     </ScrollView>
   );
@@ -89,6 +128,13 @@ const styles = StyleSheet.create({
     backgroundColor:'green'
   },
 
+  sendbutton:{
+    justifyContent:'space-between',
+    top:140,
+    backgroundColor:"black"
+    
+  },
+
   advancedsettings:{
     justifyContent:'space-between',
     top:180,
@@ -110,7 +156,7 @@ const styles = StyleSheet.create({
 
   brightnessslider:{
     justifyContent:'space-between',
-    top:80
+    top:5
   },
 
   brightnesstext:{
