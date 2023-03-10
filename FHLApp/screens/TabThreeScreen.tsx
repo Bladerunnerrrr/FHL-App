@@ -1,31 +1,70 @@
-// Setting Tab
-
-import { StyleSheet,ScrollView } from 'react-native';
+import { StyleSheet, ScrollView, TouchableOpacity, FlatList } from 'react-native';
 import { Text, View } from '../components/Themed';
 import React from 'react';
 import Slider from '@react-native-community/slider';
 import { white } from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
-
+import { Button } from 'react-native-paper';
 
 export default function TabThreeScreen() {
-  const[sliderValue,setSliderValue]=React.useState(0);
-  const[sliderValue1,setSliderValue1]=React.useState(0);
-  const[sliderValue2,setSliderValue2]=React.useState(0);
+  const [sliderValue, setSliderValue] = React.useState(0);
+  const [sliderValue1, setSliderValue1] = React.useState(0);
+  const [sliderValue2, setSliderValue2] = React.useState(0);
+  const [gridColors, setGridColors] = React.useState(Array(55).fill("gray"));
+  
+  const backgroundColor1 = `rgba(${sliderValue}, ${sliderValue1}, ${sliderValue2}, 1)`;
+  const renderGridItem = ({ item, index }) => {
+    const onGridItemPress = () => {
+      const newGridColors = [...gridColors];
+      newGridColors[index] = `rgba(${sliderValue}, ${sliderValue1}, ${sliderValue2}, 1)`;
+      setGridColors(newGridColors);
+      console.log(index, `red: ${sliderValue},green: ${sliderValue1},blue: ${sliderValue2}`);
 
+    };
 
+    
+  
+
+    return (
+      <TouchableOpacity  style={[styles.gridItem, { backgroundColor: gridColors[index] }]}
+      onPress={onGridItemPress}>
+        <View style={[styles.square,{ backgroundColor: gridColors[index] }]}></View>
+      </TouchableOpacity>
+    );
+  };
+ 
   return (
-    <View style={styles.container} >
-      <ScrollView>
-      <Text style={styles.redtext}>Red</Text>
-      <Slider maximumValue={255} minimumValue={0}  style={styles.redslider} step={1} value={sliderValue} onValueChange={setSliderValue}/>
-      <Text style={styles.redslidertitle}> {sliderValue && +sliderValue.toFixed(3)} </Text>
-      <Text style={styles.greentext}>Green</Text>
-      <Slider maximumValue={255} minimumValue={0} step={1}  style={styles.greenlider} value={sliderValue1} onValueChange={setSliderValue1}/>
-      <Text style={styles.greenslidertitle}> {sliderValue1 && +sliderValue1.toFixed(3)} </Text> 
-      <Text style={styles.bluetext}>Blue</Text>
-      <Slider maximumValue={255} minimumValue={0} step={1}  style={styles.blueslider} value={sliderValue2} onValueChange={setSliderValue2}/>
-      <Text style={styles.blueslidertitle}> {sliderValue2 && +sliderValue2.toFixed(3)} </Text>
-      </ScrollView>
+    <View style={styles.container}>
+     
+      <View style = {styles.gridContainer}>
+        <FlatList
+          style = {styles.gridContainer}
+          data={Array(55).fill("")}
+          numColumns={11}
+          renderItem={renderGridItem}
+          keyExtractor={(item, index) => index.toString()}
+        />
+      </View>
+      <View style = {styles.sampleContainer} >
+        <Text style = {styles.sampleText}>Sample Color:</Text>
+        <View style={[styles.circle, {backgroundColor: backgroundColor1}]}></View>
+        <TouchableOpacity style ={styles.resetButton}
+        onPress={() => {
+          setGridColors(Array(55).fill('gray'))}}>
+          
+          <Text style={styles.resetButtonText}>RESET COLOR</Text>
+        </TouchableOpacity>
+      </View>
+      <View style = {styles.sliderContainer}>
+        <Text style={styles.redtext}>Red</Text>
+        <Slider maximumValue={255} minimumValue={0}  style={styles.redslider} step={10} value={sliderValue} onValueChange={setSliderValue}/>
+        <Text style={styles.redslidertitle}> {sliderValue && +sliderValue.toFixed(3)} </Text>
+        <Text style={styles.greentext}>Green</Text>
+        <Slider maximumValue={255} minimumValue={0} step={10}  style={styles.greenslider} value={sliderValue1} onValueChange={setSliderValue1}/>
+        <Text style={styles.greenslidertitle}> {sliderValue1 && +sliderValue1.toFixed(3)} </Text> 
+        <Text style={styles.bluetext}>Blue</Text>
+        <Slider maximumValue={255} minimumValue={0} step={10}  style={styles.blueslider} value={sliderValue2} onValueChange={setSliderValue2}/>
+        <Text style={styles.blueslidertitle}> {sliderValue2 && +sliderValue2.toFixed(3)} </Text>
+      </View>
       
     </View>
   );
@@ -35,83 +74,136 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    alignItems:"stretch",
-    justifyContent:"space-evenly",
    
   },
-  redslidertitle: {
-    position:"absolute",
-    fontSize: 12,
-    fontWeight:'normal',
-    top:340
-    
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-  redslider:{
-    width:500,
-    top:320
 
+  gridContainer:{
+    height: 220,
   },
 
-  greenlider:{
-    width:500,
-    top:360,
-  
+
+  sliderContainer:{
+    height: 220,
   },
 
-  blueslider:{
-    width:500,
-    justifyContent:'flex-start',
-    top:400
-  },
-
+  // ReD
   redtext:{
+    top: 10,
     position:"absolute",
-    top:300,
+    color: 'red',
     fontSize:12,
     fontWeight:'500'
+  },
+  redslider:{
+    top: 20,
+    position:"absolute",
+    width:350,
+    left: 20
 
   },
+  redslidertitle: {
+    top: 50,
+    position:"absolute",
+    fontSize: 12,
+    fontWeight:'normal',
+    left: 10,
+    
+  },
 
+  // Green
   greentext:{
+    top: 80,
     position:"absolute",
-    top:360,
+    color: "green",
     fontSize:12,
     fontWeight: '500'
   },
-
-  bluetext:{
+  greenslider:{
+    top: 90,
     position:"absolute",
-    top:420,
-    fontSize:12,
-    fontWeight: '500'
+    width:350,
+    left: 20
   },
-
   greenslidertitle: {
+    top: 120,
     position:"absolute",
     fontSize: 12,
     fontWeight:'normal',
-    top:400
+    left: 20,
+ 
   },
 
+  //Blue
+  bluetext:{
+    top: 150,
+    position:"absolute",
+    color: "blue",
+    fontSize:12,
+    fontWeight: '500'
+  },
+  blueslider:{
+    top: 160,
+    position:"absolute",
+    width:350,
+    left: 20
+  },
   blueslidertitle:{
-    position:"absolute",
+    top: 200,
+    position: "absolute",
     fontSize: 12,
-    fontWeight:'normal',
-    top:460
+    fontWeight: 'normal',
+    left: 20,
+  
+ 
+  },
+  
+  gridItem: {
+    flex: 1,
+    aspectRatio: 1,
+    margin: 1,
+  },
+  square: {
+  
+    flex: 1,
+    borderRadius: 5,
   },
 
-  textbox:{
-    top:12
-  }
-  // text:{
-  //   color:'#FFF',
-  //   fontSize:50,
-  // },
+  sampleContainer:{
+    height: 50,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+
+  sampleText:{
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+
+  resetButton:{
+    backgroundColor: '#0000FF',
+    alignItems: 'center',
+    marginVertical: 15,
+    width: 150,
+    marginLeft: 30
+  },
+
+  resetButtonText:{
+    fontWeight: 'bold',
+    fontSize: 16,
+    
+  },
+
+  circle: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    marginLeft: 20,
+    borderColor: 'white',
+    borderWidth: 2
+  },
+
+
 });
 
 
