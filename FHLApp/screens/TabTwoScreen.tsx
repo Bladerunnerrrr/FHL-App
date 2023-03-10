@@ -13,9 +13,9 @@ import * as Paho from 'paho-mqtt';
 export default function TabTwoScreen(this: any) {
 
   const[text,setText]=React.useState(""); //comment
-  const [color,setColorValue]=React.useState(15)
-  const[sliderValue,setSliderValue]=React.useState(15);
-  const[sliderValue1,setSliderValue1]=React.useState(15);
+  const [color,setColorValue]=React.useState(0)
+  const[sliderValue,setSliderValue]=React.useState(0);
+  const[sliderValue1,setSliderValue1]=React.useState(0);
 
   const client= new Paho.Client('broker.hivemq.com',8000,'clientcreate_'+Math.random());
 
@@ -84,9 +84,6 @@ export default function TabTwoScreen(this: any) {
       <Slider maximumValue={255} minimumValue={0} step={1}  style={styles.brightnessslider} value={sliderValue1} onValueChange={setSliderValue1}/>
       <Text style={styles.brighterslidertitle}> {sliderValue1 && +sliderValue1.toFixed(3)} </Text>
       <Button mode="text" onPress={click} style={styles.sendbutton}>Send</Button>
-      <Button mode='text' onPress={()=> console.log("pressed Advanced settings")} style={styles.advancedsettings}>
-        Advanced Settings 
-      </Button>
       <Button mode='text' onPress={()=> console.log("pressed Settings")} style={styles.community} >
         Community
       </Button>
@@ -102,8 +99,10 @@ const styles = StyleSheet.create({
     justifyContent:"space-evenly",
   },
   cyclespeedtitle: {
+    position:"absolute",
     fontSize: 12,
     fontWeight:'normal',
+    top:270
   },
   separator: {
     marginVertical: 30,
@@ -140,54 +139,50 @@ const styles = StyleSheet.create({
 
   sendbutton:{
     justifyContent:'space-between',
-    top:140,
+    top:100,
     backgroundColor:"black"
     
   },
-
-  advancedsettings:{
-    justifyContent:'space-between',
-    top:180,
-    backgroundColor:"black"
-  },
-
   community:{
 
     justifyContent:'space-between',
-    top:220,
+    top:140,
     backgroundColor:"black"
   },
 
   cyclespeedslider:{
     justifyContent:'space-between',
-    top:10
+    top:20
 
   },
 
   brightnessslider:{
     justifyContent:'space-between',
-    top:5
+    top:60
   },
 
   brightnesstext:{
+    position:"absolute",
     justifyContent:'space-between',
-    top:70,
+    top:280,
     fontSize: 20,
     fontWeight: 'bold'
 
   },
 
   cyclespeedtext:{
+    position:"relative",
     justifyContent:'space-between',
-    top:-5,
+    top:10,
     fontSize: 20,
     fontWeight: 'bold'
   },
 
   brighterslidertitle: {
+    position:"absolute",
     fontSize: 12,
     fontWeight:'normal',
-    top:70
+    top:330
   },
 
   textbox:{
