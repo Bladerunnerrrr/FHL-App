@@ -67,7 +67,8 @@ export default function TabTwoScreen(this: any) {
   return (
     <ScrollView>
     <View style={styles.container} >
-      <TextInput label="Enter a Display Message..." value={text} style={styles.textbox} onChangeText={text=>setText(text)} />
+      <TextInput label="Enter a Display Message ..." value={text} style={styles.textbox} onChangeText={(text) => setText(text.slice(0, 15))}
+      maxLength={15} />
       <Button mode='contained' onPress={colorchangered} style={styles.button}>
         Red
       </Button>
