@@ -85,9 +85,9 @@ export default function TabTwoScreen(this: any) {
       <Slider maximumValue={255} minimumValue={0} step={1}  style={styles.brightnessslider} value={sliderValue1} onValueChange={setSliderValue1}/>
       <Text style={styles.brighterslidertitle}> {sliderValue1 && +sliderValue1.toFixed(3)} </Text>
       <Button mode="text" onPress={click} style={styles.sendbutton}>Send</Button>
-      <Button mode='text' onPress={()=> console.log("pressed Settings")} style={styles.community} >
+      {/* <Button mode='text' onPress={()=> console.log("pressed Settings")} style={styles.community} >
         Community
-      </Button>
+      </Button> */}
     </View>
     </ScrollView>
   );
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     position:"absolute",
     fontSize: 12,
     fontWeight:'normal',
-    top:270
+    top:210
   },
   separator: {
     marginVertical: 30,
@@ -140,41 +140,43 @@ const styles = StyleSheet.create({
 
   sendbutton:{
     justifyContent:'space-between',
-    top:100,
+    top:89,
     backgroundColor:"black"
     
   },
-  community:{
+  // community:{
 
-    justifyContent:'space-between',
-    top:140,
-    backgroundColor:"black"
-  },
+  //   justifyContent:'space-between',
+  //   top:140,
+  //   backgroundColor:"black"
+  // },
 
   cyclespeedslider:{
     justifyContent:'space-between',
-    top:20
+    top:-15,
+    
 
   },
 
   brightnessslider:{
     justifyContent:'space-between',
-    top:60
+    top:23,
+    
   },
 
   brightnesstext:{
     position:"absolute",
     justifyContent:'space-between',
-    top:280,
+    top:225,
     fontSize: 20,
     fontWeight: 'bold'
 
   },
 
   cyclespeedtext:{
-    position:"relative",
+    position:"absolute",
     justifyContent:'space-between',
-    top:10,
+    top:165,
     fontSize: 20,
     fontWeight: 'bold'
   },
@@ -183,7 +185,7 @@ const styles = StyleSheet.create({
     position:"absolute",
     fontSize: 12,
     fontWeight:'normal',
-    top:330
+    top:270
   },
 
   textbox:{

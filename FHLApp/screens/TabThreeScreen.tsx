@@ -131,21 +131,21 @@ const styles = StyleSheet.create(
 
   // Red
   redtext:{
-    top: 10,
+    top: 0,
     position:"absolute",
     color: 'red',
     fontSize:12,
     fontWeight:'500'
   },
   redslider:{
-    top: 20,
+    top: 13,
     position:"absolute",
-    width:350,
+    width:550,
     left: 20
 
   },
   redslidertitle: {
-    top: 50,
+    top: 27,
     position:"absolute",
     fontSize: 12,
     fontWeight:'normal',
@@ -155,47 +155,47 @@ const styles = StyleSheet.create(
 
   // Green
   greentext:{
-    top: 80,
+    top: 50,
     position:"absolute",
     color: "green",
     fontSize:12,
     fontWeight: '500'
   },
   greenslider:{
-    top: 90,
+    top: 63,
     position:"absolute",
-    width:350,
+    width:550,
     left: 20
   },
   greenslidertitle: {
-    top: 120,
+    top: 75,
     position:"absolute",
     fontSize: 12,
     fontWeight:'normal',
-    left: 20,
+    left: 10,
  
   },
 
   //Blue
   bluetext:{
-    top: 150,
+    top: 90,
     position:"absolute",
     color: "blue",
     fontSize:12,
     fontWeight: '500'
   },
   blueslider:{
-    top: 160,
+    top: 99,
     position:"absolute",
-    width:350,
+    width:550,
     left: 20
   },
   blueslidertitle:{
-    top: 200,
+    top: 115,
     position: "absolute",
     fontSize: 12,
     fontWeight: 'normal',
-    left: 20,
+    left: 10,
   
  
   },
