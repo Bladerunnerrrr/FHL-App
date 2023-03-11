@@ -104,8 +104,15 @@ export default function TabThreeScreen() {
           publishMessage(message);
         }}
       >
-        <Text style={styles.runButtonText}>RUN</Text>
+        <Text style={styles.runButtonText}>Run</Text>
       </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.runButton}
+      >
+        <Text style={styles.runButtonText}>Save</Text>
+      </TouchableOpacity>
+
     </View>
   );
 }
@@ -119,7 +126,7 @@ const styles = StyleSheet.create(
     height: 300,
   },
   sliderContainer:{
-    height: 300,
+    height: 220,
   },
 
   // Red
@@ -217,16 +224,18 @@ const styles = StyleSheet.create(
   },
 
   resetButton:{
+    marginLeft: 35,
+    padding: 1,
     backgroundColor: '#0000FF',
     alignItems: 'center',
+    borderRadius: 15,
     marginVertical: 15,
-    width: 150,
-    marginLeft: 30
+    minWidth: 150,
   },
 
   resetButtonText:{
     fontWeight: 'bold',
-    fontSize: 16
+    fontSize: 15
   },
 
   circle: {
@@ -238,10 +247,12 @@ const styles = StyleSheet.create(
     borderWidth: 2
   },
   runButton: {
-  backgroundColor: '#0000FF',
-  padding: 15,
-  alignItems: 'center',
-  marginVertical: 15,
+    backgroundColor: '#0000FF',
+    padding: 12,
+    alignItems: 'center',
+    borderRadius: 20,
+    marginVertical: 15,
+    minWidth: 150,
   },
   runButtonText: {
   color: '#fff',

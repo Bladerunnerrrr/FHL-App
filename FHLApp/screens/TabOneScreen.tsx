@@ -212,10 +212,12 @@ const styles = StyleSheet.create({
   width: '100%',
   },
   runButton: {
-  backgroundColor: '#0000FF',
-  padding: 15,
-  alignItems: 'center',
-  marginVertical: 15,
+    backgroundColor: '#0000FF',
+    padding: 12,
+    alignItems: 'center',
+    borderRadius: 20,
+    marginVertical: 15,
+    minWidth: 150,
   },
   runButtonText: {
   color: '#fff',
