@@ -23,7 +23,7 @@ export default function TabTwoScreen(this: any) {
 
 
   function onConnect(){
-    console.log("the broker is connected");
+    console.log("The broker is connected");
   }
   const click=()=>  //this function is to send the data entered by the user and the color chosen by the user. this function will also publish the data to the esp.
   {

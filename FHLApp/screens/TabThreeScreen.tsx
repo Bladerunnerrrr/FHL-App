@@ -2,27 +2,58 @@ import { StyleSheet, ScrollView, TouchableOpacity, FlatList } from 'react-native
 import { Text, View } from '../components/Themed';
 import React from 'react';
 import Slider from '@react-native-community/slider';
-import { white } from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
-import { Button } from 'react-native-paper';
+import * as Paho from 'paho-mqtt';
 
 export default function TabThreeScreen() {
+  // MQTT Broker
+  const client = new Paho.Client('broker.hivemq.com', 8000, 'client_' + Math.random());
+
   const [sliderValue, setSliderValue] = React.useState(0);
   const [sliderValue1, setSliderValue1] = React.useState(0);
   const [sliderValue2, setSliderValue2] = React.useState(0);
   const [gridColors, setGridColors] = React.useState(Array(55).fill("gray"));
-  
+
+  client.connect({ onSuccess: onConnect });
+
+  function onConnect() {
+    console.log('Connected to MQTT broker');
+  }
+
+  function publishMessage(message: string) {
+    const topic = 'festive-holiday-lights';
+    const payload = message;
+    const messageObj = new Paho.Message(payload);
+    messageObj.destinationName = topic;
+    client.send(messageObj);
+    console.log('Message sent: ', messageObj);
+  }
+
+  function generateMessage() {
+    let message = '';
+    gridColors.forEach(color => {
+      const [r, g, b] = color.slice(5, -1).split(',').map(Number); // extract RGB values from color string
+      console.log('color:', color);
+      console.log('r:', r, 'g:', g, 'b:', b);
+      if (color == "gray")
+      {
+        message += "000000000"
+      }
+      else
+      {
+        message += `${r.toString().padStart(3, '0')}${g.toString().padStart(3, '0')}${b.toString().padStart(3, '0')}`;
+      }
+    });
+    return message;
+  }
+
   const backgroundColor1 = `rgba(${sliderValue}, ${sliderValue1}, ${sliderValue2}, 1)`;
-  const renderGridItem = ({ item, index }) => {
+  const renderGridItem = ({ index }) => {
     const onGridItemPress = () => {
       const newGridColors = [...gridColors];
       newGridColors[index] = `rgba(${sliderValue}, ${sliderValue1}, ${sliderValue2}, 1)`;
       setGridColors(newGridColors);
       console.log(index, `red: ${sliderValue},green: ${sliderValue1},blue: ${sliderValue2}`);
-
     };
-
-    
-  
 
     return (
       <TouchableOpacity  style={[styles.gridItem, { backgroundColor: gridColors[index] }]}
@@ -65,28 +96,33 @@ export default function TabThreeScreen() {
         <Slider maximumValue={255} minimumValue={0} step={10}  style={styles.blueslider} value={sliderValue2} onValueChange={setSliderValue2}/>
         <Text style={styles.blueslidertitle}> {sliderValue2 && +sliderValue2.toFixed(3)} </Text>
       </View>
-      
+
+      <TouchableOpacity
+        style={styles.runButton}
+        onPress={() => {
+          const message = generateMessage();
+          publishMessage(message);
+        }}
+      >
+        <Text style={styles.runButtonText}>RUN</Text>
+      </TouchableOpacity>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-
+const styles = StyleSheet.create(
+{
   container: {
     flex: 1,
-   
   },
-
   gridContainer:{
     height: 220,
   },
-
-
   sliderContainer:{
     height: 220,
   },
 
-  // ReD
+  // Red
   redtext:{
     top: 10,
     position:"absolute",
@@ -190,8 +226,7 @@ const styles = StyleSheet.create({
 
   resetButtonText:{
     fontWeight: 'bold',
-    fontSize: 16,
-    
+    fontSize: 16
   },
 
   circle: {
@@ -202,8 +237,16 @@ const styles = StyleSheet.create({
     borderColor: 'white',
     borderWidth: 2
   },
-
-
+  runButton: {
+  backgroundColor: '#0000FF',
+  padding: 15,
+  alignItems: 'center',
+  marginVertical: 15,
+  },
+  runButtonText: {
+  color: '#fff',
+  fontSize: 15,
+  },
 });
 
 
