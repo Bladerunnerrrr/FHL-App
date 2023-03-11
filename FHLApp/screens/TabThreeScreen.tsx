@@ -11,7 +11,7 @@ export default function TabThreeScreen() {
   const [sliderValue, setSliderValue] = React.useState(0);
   const [sliderValue1, setSliderValue1] = React.useState(0);
   const [sliderValue2, setSliderValue2] = React.useState(0);
-  const [gridColors, setGridColors] = React.useState(Array(55).fill("gray"));
+  const [gridColors, setGridColors] = React.useState(Array(77).fill("gray"));
 
   client.connect({ onSuccess: onConnect });
 
@@ -69,7 +69,7 @@ export default function TabThreeScreen() {
       <View style = {styles.gridContainer}>
         <FlatList
           style = {styles.gridContainer}
-          data={Array(55).fill("")}
+          data={Array(77).fill("")}
           numColumns={11}
           renderItem={renderGridItem}
           keyExtractor={(item, index) => index.toString()}
@@ -80,7 +80,7 @@ export default function TabThreeScreen() {
         <View style={[styles.circle, {backgroundColor: backgroundColor1}]}></View>
         <TouchableOpacity style ={styles.resetButton}
         onPress={() => {
-          setGridColors(Array(55).fill('gray'))}}>
+          setGridColors(Array(77).fill('gray'))}}>
           
           <Text style={styles.resetButtonText}>RESET COLOR</Text>
         </TouchableOpacity>
@@ -116,10 +116,10 @@ const styles = StyleSheet.create(
     flex: 1,
   },
   gridContainer:{
-    height: 220,
+    height: 300,
   },
   sliderContainer:{
-    height: 220,
+    height: 300,
   },
 
   // Red
