@@ -1,8 +1,10 @@
-import { StyleSheet, ScrollView, TouchableOpacity, FlatList } from 'react-native';
+import { StyleSheet, ScrollView, TouchableOpacity, FlatList,TextInput } from 'react-native';
 import { Text, View } from '../components/Themed';
 import React from 'react';
 import Slider from '@react-native-community/slider';
 import * as Paho from 'paho-mqtt';
+import axios from 'axios';
+
 
 export default function TabThreeScreen() {
   // MQTT Broker
@@ -12,6 +14,8 @@ export default function TabThreeScreen() {
   const [sliderValue1, setSliderValue1] = React.useState(0);
   const [sliderValue2, setSliderValue2] = React.useState(0);
   const [gridColors, setGridColors] = React.useState(Array(55).fill("gray"));
+  const [patternName, setPatternName] = React.useState('');
+
 
   client.connect({ onSuccess: onConnect });
 
@@ -106,7 +110,42 @@ export default function TabThreeScreen() {
       >
         <Text style={styles.runButtonText}>RUN</Text>
       </TouchableOpacity>
+      <TouchableOpacity
+       
+       style={styles.saveButton}
+       onPress={() => {
+         const message = generateMessage();
+         const name = patternName.trim();
+         if (name) {
+           // Send the pattern name and message to the database here
+           axios.post('http://localhost:3000/save-patterns', {
+               name: patternName,
+               message: message,
+              }).then(response => {
+  console.log('Pattern saved successfully:', response.data);
+                }).catch(error => {
+              console.error('Error saving pattern:', error);
+                  });
+         } else {
+           alert('Please enter a pattern name.');
+         }
+       }}
+     >
+       <Text style={styles.saveButtonText}>SAVE</Text>
+      </TouchableOpacity>
+
+      <TextInput
+        style={styles.input}
+        placeholder="Enter pattern name"
+        value={patternName}
+        onChangeText={setPatternName}
+/>
+
+
     </View>
+        
+      
+
   );
 }
 
@@ -247,6 +286,30 @@ const styles = StyleSheet.create(
   color: '#fff',
   fontSize: 15,
   },
+  saveButton: {
+    backgroundColor: '#007AFF',
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginTop: 10,
+    alignSelf: 'center',
+  },
+  saveButtonText: {
+    color: '#FFFFFF',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  
+    input: {
+      borderWidth: 1,
+      borderColor: '#ccc',
+      borderRadius: 4,
+      padding: 8,
+      marginBottom: 16,
+    },
+  
+ 
+  
 });
 
 
