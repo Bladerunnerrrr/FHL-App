@@ -13,9 +13,9 @@ import * as Paho from 'paho-mqtt';
 export default function TabTwoScreen(this: any) {
 
   const[text,setText]=React.useState(""); //comment
-  const [color,setColorValue]=React.useState(15)
-  const[sliderValue,setSliderValue]=React.useState(15);
-  const[sliderValue1,setSliderValue1]=React.useState(15);
+  const [color,setColorValue]=React.useState(0)
+  const[sliderValue,setSliderValue]=React.useState(0);
+  const[sliderValue1,setSliderValue1]=React.useState(0);
 
   const client= new Paho.Client('broker.hivemq.com',8000,'clientcreate_'+Math.random());
 
@@ -23,7 +23,7 @@ export default function TabTwoScreen(this: any) {
 
 
   function onConnect(){
-    console.log("the broker is connected");
+    console.log("The broker is connected");
   }
   const click=()=>  //this function is to send the data entered by the user and the color chosen by the user. this function will also publish the data to the esp.
   {
@@ -67,7 +67,8 @@ export default function TabTwoScreen(this: any) {
   return (
     <ScrollView>
     <View style={styles.container} >
-      <TextInput label="Enter a Display Message..." value={text} style={styles.textbox} onChangeText={text=>setText(text)} />
+      <TextInput label="Enter a Display Message ..." value={text} style={styles.textbox} onChangeText={(text) => setText(text.slice(0, 15))}
+      maxLength={15} />
       <Button mode='contained' onPress={colorchangered} style={styles.button}>
         Red
       </Button>
@@ -77,19 +78,16 @@ export default function TabTwoScreen(this: any) {
       <Button mode='contained' onPress={colorchangeblue} style={styles.button2}>
         Blue
       </Button>
-      <Text style={styles.cyclespeedtext}>Cycle Speed</Text>
+      {/* <Text style={styles.cyclespeedtext}>Cycle Speed</Text>
       <Slider maximumValue={100} minimumValue={0}  style={styles.cyclespeedslider} step={1} value={sliderValue} onValueChange={setSliderValue}/>
-      <Text style={styles.cyclespeedtitle}> {sliderValue && +sliderValue.toFixed(3)} </Text>
+      <Text style={styles.cyclespeedtitle}> {sliderValue && +sliderValue.toFixed(3)} </Text> */}
       <Text style={styles.brightnesstext}>Brightness</Text>
       <Slider maximumValue={255} minimumValue={0} step={1}  style={styles.brightnessslider} value={sliderValue1} onValueChange={setSliderValue1}/>
       <Text style={styles.brighterslidertitle}> {sliderValue1 && +sliderValue1.toFixed(3)} </Text>
       <Button mode="text" onPress={click} style={styles.sendbutton}>Send</Button>
-      <Button mode='text' onPress={()=> console.log("pressed Advanced settings")} style={styles.advancedsettings}>
-        Advanced Settings 
-      </Button>
-      <Button mode='text' onPress={()=> console.log("pressed Settings")} style={styles.community} >
+      {/* <Button mode='text' onPress={()=> console.log("pressed Settings")} style={styles.community} >
         Community
-      </Button>
+      </Button> */}
     </View>
     </ScrollView>
   );
@@ -101,10 +99,12 @@ const styles = StyleSheet.create({
     alignItems:"stretch",
     justifyContent:"space-evenly",
   },
-  cyclespeedtitle: {
-    fontSize: 12,
-    fontWeight:'normal',
-  },
+  // cyclespeedtitle: {
+  //   position:"absolute",
+  //   fontSize: 12,
+  //   fontWeight:'normal',
+  //   top:210
+  // },
   separator: {
     marginVertical: 30,
     height: 1,
@@ -140,54 +140,54 @@ const styles = StyleSheet.create({
 
   sendbutton:{
     justifyContent:'space-between',
-    top:140,
+    top:89,
     backgroundColor:"black"
     
   },
+  // community:{
 
-  advancedsettings:{
-    justifyContent:'space-between',
-    top:180,
-    backgroundColor:"black"
-  },
+  //   justifyContent:'space-between',
+  //   top:140,
+  //   backgroundColor:"black"
+  // },
 
-  community:{
+  // cyclespeedslider:{
+  //   justifyContent:'space-between',
+  //   top:-15,
+    
 
-    justifyContent:'space-between',
-    top:220,
-    backgroundColor:"black"
-  },
-
-  cyclespeedslider:{
-    justifyContent:'space-between',
-    top:10
-
-  },
+  // },
 
   brightnessslider:{
+    position:"absolute",
     justifyContent:'space-between',
-    top:5
+    top:210,
+    width:1290
+    
   },
 
   brightnesstext:{
+    position:"absolute",
     justifyContent:'space-between',
-    top:70,
+    top:185,
     fontSize: 20,
     fontWeight: 'bold'
 
   },
 
-  cyclespeedtext:{
-    justifyContent:'space-between',
-    top:-5,
-    fontSize: 20,
-    fontWeight: 'bold'
-  },
+  // cyclespeedtext:{
+  //   position:"absolute",
+  //   justifyContent:'space-between',
+  //   top:165,
+  //   fontSize: 20,
+  //   fontWeight: 'bold'
+  // },
 
   brighterslidertitle: {
+    position:"absolute",
     fontSize: 12,
     fontWeight:'normal',
-    top:70
+    top:230
   },
 
   textbox:{
@@ -198,5 +198,3 @@ const styles = StyleSheet.create({
   //   fontSize:50,
   // },
 });
-
-

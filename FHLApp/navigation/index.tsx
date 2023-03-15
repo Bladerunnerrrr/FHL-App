@@ -108,8 +108,8 @@ function BottomTabNavigator() {
         name="TabThree"
         component={TabThreeScreen}
         options={{
-          title: 'Settings',
-          tabBarIcon: ({ color }) => <TabBarIcon name="cog" color={color} />,
+          title: 'Advanced',
+          tabBarIcon: ({ color }) => <TabBarIcon name="paint-brush" color={color} />,
         }}
       />
     </BottomTab.Navigator>
