@@ -13,7 +13,7 @@ export default function TabThreeScreen() {
   const [sliderValue, setSliderValue] = React.useState(0);
   const [sliderValue1, setSliderValue1] = React.useState(0);
   const [sliderValue2, setSliderValue2] = React.useState(0);
-  const [gridColors, setGridColors] = React.useState(Array(55).fill("gray"));
+  const [gridColors, setGridColors] = React.useState(Array(35).fill("gray"));
   const [patternName, setPatternName] = React.useState('');
 
 
@@ -73,8 +73,8 @@ export default function TabThreeScreen() {
       <View style = {styles.gridContainer}>
         <FlatList
           style = {styles.gridContainer}
-          data={Array(55).fill("")}
-          numColumns={11}
+          data={Array(35).fill("")}
+          numColumns={5}
           renderItem={renderGridItem}
           keyExtractor={(item, index) => index.toString()}
         />
@@ -84,7 +84,7 @@ export default function TabThreeScreen() {
         <View style={[styles.circle, {backgroundColor: backgroundColor1}]}></View>
         <TouchableOpacity style ={styles.resetButton}
         onPress={() => {
-          setGridColors(Array(55).fill('gray'))}}>
+          setGridColors(Array(35).fill('gray'))}}>
           
           <Text style={styles.resetButtonText}>RESET COLOR</Text>
         </TouchableOpacity>
@@ -105,7 +105,7 @@ export default function TabThreeScreen() {
         style={styles.runButton}
         onPress={() => {
           const message = generateMessage();
-          publishMessage(message);
+          publishMessage("0" + message);
         }}
       >
         <Text style={styles.runButtonText}>RUN</Text>

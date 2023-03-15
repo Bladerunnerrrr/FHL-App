@@ -47,7 +47,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
 
   function publishMessage(message: string) {
     const topic = 'festive-holiday-lights';
-    const payload = message;
+    const payload = "1" + "255" + "3" + message;
     const messageObj = new Paho.Message(payload);
     messageObj.destinationName = topic;
     client.send(messageObj);
