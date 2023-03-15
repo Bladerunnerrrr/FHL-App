@@ -78,9 +78,9 @@ export default function TabTwoScreen(this: any) {
       <Button mode='contained' onPress={colorchangeblue} style={styles.button2}>
         Blue
       </Button>
-      <Text style={styles.cyclespeedtext}>Cycle Speed</Text>
+      {/* <Text style={styles.cyclespeedtext}>Cycle Speed</Text>
       <Slider maximumValue={100} minimumValue={0}  style={styles.cyclespeedslider} step={1} value={sliderValue} onValueChange={setSliderValue}/>
-      <Text style={styles.cyclespeedtitle}> {sliderValue && +sliderValue.toFixed(3)} </Text>
+      <Text style={styles.cyclespeedtitle}> {sliderValue && +sliderValue.toFixed(3)} </Text> */}
       <Text style={styles.brightnesstext}>Brightness</Text>
       <Slider maximumValue={255} minimumValue={0} step={1}  style={styles.brightnessslider} value={sliderValue1} onValueChange={setSliderValue1}/>
       <Text style={styles.brighterslidertitle}> {sliderValue1 && +sliderValue1.toFixed(3)} </Text>
@@ -99,12 +99,12 @@ const styles = StyleSheet.create({
     alignItems:"stretch",
     justifyContent:"space-evenly",
   },
-  cyclespeedtitle: {
-    position:"absolute",
-    fontSize: 12,
-    fontWeight:'normal',
-    top:210
-  },
+  // cyclespeedtitle: {
+  //   position:"absolute",
+  //   fontSize: 12,
+  //   fontWeight:'normal',
+  //   top:210
+  // },
   separator: {
     marginVertical: 30,
     height: 1,
@@ -151,41 +151,43 @@ const styles = StyleSheet.create({
   //   backgroundColor:"black"
   // },
 
-  cyclespeedslider:{
-    justifyContent:'space-between',
-    top:-15,
+  // cyclespeedslider:{
+  //   justifyContent:'space-between',
+  //   top:-15,
     
 
-  },
+  // },
 
   brightnessslider:{
+    position:"absolute",
     justifyContent:'space-between',
-    top:23,
+    top:210,
+    width:1290
     
   },
 
   brightnesstext:{
     position:"absolute",
     justifyContent:'space-between',
-    top:225,
+    top:185,
     fontSize: 20,
     fontWeight: 'bold'
 
   },
 
-  cyclespeedtext:{
-    position:"absolute",
-    justifyContent:'space-between',
-    top:165,
-    fontSize: 20,
-    fontWeight: 'bold'
-  },
+  // cyclespeedtext:{
+  //   position:"absolute",
+  //   justifyContent:'space-between',
+  //   top:165,
+  //   fontSize: 20,
+  //   fontWeight: 'bold'
+  // },
 
   brighterslidertitle: {
     position:"absolute",
     fontSize: 12,
     fontWeight:'normal',
-    top:270
+    top:230
   },
 
   textbox:{
