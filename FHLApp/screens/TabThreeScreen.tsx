@@ -1,4 +1,4 @@
-import { StyleSheet, ScrollView, TouchableOpacity, FlatList,TextInput } from 'react-native';
+import { StyleSheet, ScrollView, TouchableOpacity, FlatList,TextInput, Alert } from 'react-native';
 import { Text, View } from '../components/Themed';
 import React from 'react';
 import Slider from '@react-native-community/slider';
@@ -13,7 +13,7 @@ export default function TabThreeScreen() {
   const [sliderValue, setSliderValue] = React.useState(0);
   const [sliderValue1, setSliderValue1] = React.useState(0);
   const [sliderValue2, setSliderValue2] = React.useState(0);
-  const [gridColors, setGridColors] = React.useState(Array(55).fill("gray"));
+  const [gridColors, setGridColors] = React.useState(Array(35).fill("gray"));
   const [patternName, setPatternName] = React.useState('');
 
 
@@ -73,8 +73,8 @@ export default function TabThreeScreen() {
       <View style = {styles.gridContainer}>
         <FlatList
           style = {styles.gridContainer}
-          data={Array(55).fill("")}
-          numColumns={11}
+          data={Array(35).fill("")}
+          numColumns={5}
           renderItem={renderGridItem}
           keyExtractor={(item, index) => index.toString()}
         />
@@ -82,11 +82,11 @@ export default function TabThreeScreen() {
       <View style = {styles.sampleContainer} >
         <Text style = {styles.sampleText}>Sample Color:</Text>
         <View style={[styles.circle, {backgroundColor: backgroundColor1}]}></View>
-        <TouchableOpacity style ={styles.resetButton}
+        <TouchableOpacity style ={styles.runButton}
         onPress={() => {
-          setGridColors(Array(55).fill('gray'))}}>
+          setGridColors(Array(35).fill('gray'))}}>
           
-          <Text style={styles.resetButtonText}>RESET COLOR</Text>
+          <Text style={styles.runButtonText}>RESET COLOR</Text>
         </TouchableOpacity>
       </View>
       <View style = {styles.sliderContainer}>
@@ -100,52 +100,56 @@ export default function TabThreeScreen() {
         <Slider maximumValue={255} minimumValue={0} step={10}  style={styles.blueslider} value={sliderValue2} onValueChange={setSliderValue2}/>
         <Text style={styles.blueslidertitle}> {sliderValue2 && +sliderValue2.toFixed(3)} </Text>
       </View>
+      
+        {/* <TextInput
+          style={styles.input}
+          placeholder="Enter pattern name:"
+          value={patternName}
+          onChangeText={setPatternName}
+        /> */}
+        
+        <View style = {styles.sampleContainer} >
+        <TouchableOpacity
+          style={styles.runButton}
+          onPress={() => {
+            const message = generateMessage();
+            publishMessage("0" + message);
+          }}
+        >
+          <Text style={styles.runButtonText}>RUN</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity
+        <TouchableOpacity
         style={styles.runButton}
         onPress={() => {
-          const message = generateMessage();
-          publishMessage(message);
+          Alert.prompt(
+            "Save Pattern",
+            "Enter pattern name:",
+            (text) => {
+              setPatternName(text);
+              // save the pattern with the entered name
+              const message = generateMessage();
+              // const name = patternName.trim();
+              // Send the pattern name and message to the database here
+              axios.post('http://localhost:3000/save-patterns', {
+                  name: patternName.trim(),
+                  message: message,
+                  }).then(response => {
+                    console.log('Pattern saved successfully:', response.data);
+                    }).catch(error => {
+                  console.error('Error saving pattern:', error);
+                      });
+            },
+            undefined,
+            "",
+            "default"
+          );
         }}
-      >
-        <Text style={styles.runButtonText}>RUN</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-       
-       style={styles.saveButton}
-       onPress={() => {
-         const message = generateMessage();
-         const name = patternName.trim();
-         if (name) {
-           // Send the pattern name and message to the database here
-           axios.post('http://localhost:3000/save-patterns', {
-               name: patternName,
-               message: message,
-              }).then(response => {
-  console.log('Pattern saved successfully:', response.data);
-                }).catch(error => {
-              console.error('Error saving pattern:', error);
-                  });
-         } else {
-           alert('Please enter a pattern name.');
-         }
-       }}
-     >
-       <Text style={styles.saveButtonText}>SAVE</Text>
-      </TouchableOpacity>
-
-      <TextInput
-        style={styles.input}
-        placeholder="Enter pattern name"
-        value={patternName}
-        onChangeText={setPatternName}
-/>
-
-
+          >
+        <Text style={styles.runButtonText}>SAVE</Text>
+        </TouchableOpacity>
+      </View>
     </View>
-        
-      
-
   );
 }
 
@@ -155,7 +159,7 @@ const styles = StyleSheet.create(
     flex: 1,
   },
   gridContainer:{
-    height: 220,
+    height: 300,
   },
   sliderContainer:{
     height: 220,
@@ -204,7 +208,7 @@ const styles = StyleSheet.create(
     position:"absolute",
     fontSize: 12,
     fontWeight:'normal',
-    left: 20,
+    left: 10,
  
   },
 
@@ -227,27 +231,25 @@ const styles = StyleSheet.create(
     position: "absolute",
     fontSize: 12,
     fontWeight: 'normal',
-    left: 20,
-  
- 
+    left: 10,
   },
   
   gridItem: {
     flex: 1,
-    aspectRatio: 1,
+    aspectRatio: 2,
     margin: 1,
   },
   square: {
-  
     flex: 1,
     borderRadius: 5,
   },
 
   sampleContainer:{
-    height: 50,
+    height: 75,
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: 5,
+    
   },
 
   sampleText:{
@@ -277,10 +279,12 @@ const styles = StyleSheet.create(
     borderWidth: 2
   },
   runButton: {
-  backgroundColor: '#0000FF',
-  padding: 15,
-  alignItems: 'center',
-  marginVertical: 15,
+    backgroundColor: '#0000FF',
+    padding: 15,
+    alignItems: 'center',
+    marginVertical: 10,
+    width: 150,
+    marginLeft: 30,
   },
   runButtonText: {
   color: '#fff',
@@ -300,16 +304,14 @@ const styles = StyleSheet.create(
     fontWeight: 'bold',
   },
   
-    input: {
-      borderWidth: 1,
-      borderColor: '#ccc',
-      borderRadius: 4,
-      padding: 8,
-      marginBottom: 16,
-    },
-  
- 
+  input: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 4,
+    padding: 8,
+    marginBottom: 14,
+    marginTop: 14,
+    color: 'white'
+  },
   
 });
-
-

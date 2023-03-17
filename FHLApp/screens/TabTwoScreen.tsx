@@ -67,7 +67,8 @@ export default function TabTwoScreen(this: any) {
   return (
     <ScrollView>
     <View style={styles.container} >
-      <TextInput label="Enter a Display Message..." value={text} style={styles.textbox} onChangeText={text=>setText(text)} />
+      <TextInput label="Enter a Display Message ..." value={text} style={styles.textbox} onChangeText={(text) => setText(text.slice(0, 15))}
+      maxLength={15} />
       <Button mode='contained' onPress={colorchangered} style={styles.button}>
         Red
       </Button>
@@ -84,9 +85,11 @@ export default function TabTwoScreen(this: any) {
       <Slider maximumValue={255} minimumValue={0} step={1}  style={styles.brightnessslider} value={sliderValue1} onValueChange={setSliderValue1}/>
       <Text style={styles.brighterslidertitle}> {sliderValue1 && +sliderValue1.toFixed(3)} </Text>
       <Button mode="text" onPress={click} style={styles.sendbutton}>Send</Button>
+      <Button mode='text' onPress={()=> console.log("pressed Settings")} style={styles.community} >
       {/* <Button mode='text' onPress={()=> console.log("pressed Settings")} style={styles.community} >
         Community
       </Button> */}
+      </Button>
     </View>
     </ScrollView>
   );
@@ -97,12 +100,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems:"stretch",
     justifyContent:"space-evenly",
-  },
-  cyclespeedtitle: {
-    position:"absolute",
-    fontSize: 12,
-    fontWeight:'normal',
-    top:270
   },
   separator: {
     marginVertical: 30,
@@ -139,14 +136,14 @@ const styles = StyleSheet.create({
 
   sendbutton:{
     justifyContent:'space-between',
-    top:100,
+    top:89,
     backgroundColor:"black"
     
   },
 
   brightnessslider:{
     justifyContent:'space-between',
-    top:20
+    top:10
   },
 
   brightnesstext:{
@@ -169,5 +166,3 @@ const styles = StyleSheet.create({
     top:12
   }
 });
-
-
