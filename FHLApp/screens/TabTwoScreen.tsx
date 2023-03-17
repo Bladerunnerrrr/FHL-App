@@ -77,16 +77,16 @@ export default function TabTwoScreen(this: any) {
       <Button mode='contained' onPress={colorchangeblue} style={styles.button2}>
         Blue
       </Button>
-      <Text style={styles.cyclespeedtext}>Cycle Speed</Text>
-      <Slider maximumValue={100} minimumValue={0}  style={styles.cyclespeedslider} step={1} value={sliderValue} onValueChange={setSliderValue}/>
-      <Text style={styles.cyclespeedtitle}> {sliderValue && +sliderValue.toFixed(3)} </Text>
+      {/* <Text style={styles.cyclespeedtext}>Cycle Speed</Text> */}
+      {/* <Slider maximumValue={100} minimumValue={0}  style={styles.cyclespeedslider} step={1} value={sliderValue} onValueChange={setSliderValue}/>
+      <Text style={styles.cyclespeedtitle}> {sliderValue && +sliderValue.toFixed(3)} </Text> */}
       <Text style={styles.brightnesstext}>Brightness</Text>
       <Slider maximumValue={255} minimumValue={0} step={1}  style={styles.brightnessslider} value={sliderValue1} onValueChange={setSliderValue1}/>
       <Text style={styles.brighterslidertitle}> {sliderValue1 && +sliderValue1.toFixed(3)} </Text>
       <Button mode="text" onPress={click} style={styles.sendbutton}>Send</Button>
-      <Button mode='text' onPress={()=> console.log("pressed Settings")} style={styles.community} >
+      {/* <Button mode='text' onPress={()=> console.log("pressed Settings")} style={styles.community} >
         Community
-      </Button>
+      </Button> */}
     </View>
     </ScrollView>
   );
@@ -143,55 +143,31 @@ const styles = StyleSheet.create({
     backgroundColor:"black"
     
   },
-  community:{
-
-    justifyContent:'space-between',
-    top:140,
-    backgroundColor:"black"
-  },
-
-  cyclespeedslider:{
-    justifyContent:'space-between',
-    top:20
-
-  },
 
   brightnessslider:{
     justifyContent:'space-between',
-    top:60
+    top:20
   },
 
   brightnesstext:{
     position:"absolute",
     justifyContent:'space-between',
-    top:280,
+    top:200,
     fontSize: 20,
     fontWeight: 'bold'
 
-  },
-
-  cyclespeedtext:{
-    position:"relative",
-    justifyContent:'space-between',
-    top:10,
-    fontSize: 20,
-    fontWeight: 'bold'
   },
 
   brighterslidertitle: {
     position:"absolute",
     fontSize: 12,
     fontWeight:'normal',
-    top:330
+    top:250
   },
 
   textbox:{
     top:12
   }
-  // text:{
-  //   color:'#FFF',
-  //   fontSize:50,
-  // },
 });
 
 
