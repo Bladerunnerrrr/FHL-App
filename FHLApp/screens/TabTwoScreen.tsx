@@ -143,7 +143,9 @@ const styles = StyleSheet.create({
 
   brightnessslider:{
     justifyContent:'space-between',
-    top:10
+    top:10,
+    width:360,
+    left:10
   },
 
   brightnesstext:{
