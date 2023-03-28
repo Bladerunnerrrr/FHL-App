@@ -4,6 +4,7 @@ import { executeNativeBackPress } from 'react-native-screens';
 import {Button, Card, TextInput} from 'react-native-paper';
 import CardContent from 'react-native-paper/lib/typescript/components/Card/CardContent';
 import axios from 'axios';
+import { rootUrl } from "../assets/api";
 
 
 /* Function to include navigation to the screen */
@@ -21,17 +22,17 @@ function LoginScreen(props: LoginScreenProps){
 
     const handleLogin = async () => {
         try {
-            const res = await axios.post('http://localhost:3000/login', {
+            const res = await axios.post(`${rootUrl}/login`, {
                 email,
                 password
             });
             console.log(res.data);
             alert("Login successful");
-            // Root_nav();
+            Root_nav();
         } catch (error) {
             console.error(error);
             alert("Password/Email does not match");
-            Root_nav();
+            //Root_nav();
            
         }
     };

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text } from "react-native";
 import { Appbar, Button, TextInput, Card } from "react-native-paper";
 import axios from 'axios';
+import { rootUrl } from "../assets/api";
 
 interface RegisterScreenProps{
     navigation: any;
@@ -21,7 +22,7 @@ function RegisterScreen(props: RegisterScreenProps){
             return;
         }
         try {
-            const response = await axios.post('http://localhost:3000/register', {
+            const response = await axios.post(`${rootUrl}/register`, {
                 name,
                 email,
                 password
